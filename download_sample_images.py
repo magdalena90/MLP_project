@@ -1,4 +1,4 @@
-#! bin/python2.7
+#! usr/bin/python2.7
 
 import os
 import urllib
@@ -6,7 +6,9 @@ import tarfile
 import sys
 import random
 import re
-from PIL import Image
+import PIL
+from scipy.misc import imread
+
 
 def download_url_list(tarFile, oldUrlsFile, newUrlsFile):
 
@@ -31,7 +33,7 @@ def download_url_list(tarFile, oldUrlsFile, newUrlsFile):
 
 def sample_and_download_imgs(newUrlsFile, N):
 
-	# Select random sample from lines of text file
+	# Select random sample from lines in text file
 	print('\nSelecting '+str(N)+' sample rows...')
 	num_lines = sum(1 for line in open(newUrlsFile))
 	random_lines = random.sample(xrange(1, num_lines), N)
@@ -60,8 +62,12 @@ def clean_corrupted_images():
 		if filename.endswith('.jpg'):
 			n += 1
 			try:
-				img = Image.open('Images/'+filename)
-				img.verify()
+				#img = Image.open('Images/'+filename)
+				#img.verify()
+				img = imread('Images/'+filename)
+				if len(img.shape)<3:
+					corrupted += 1
+					os.remove('Images/'+filename)	
 			except:
 				corrupted += 1
 				os.remove('Images/'+filename)
@@ -101,6 +107,7 @@ def main(args):
 
 	remove_url_files(removeTar, tarFile, removeFullList, newUrlsFile)
 
+	print('\nFinished script\n\n')
 
 if __name__ == '__main__':
 	main(sys.argv[1:])
