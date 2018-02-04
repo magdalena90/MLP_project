@@ -13,12 +13,14 @@ from scipy.misc import imread
 def download_url_list(tarFile, oldUrlsFile, newUrlsFile):
 
 	# Download tar file from ImageNet
-	if not os.path.isfile(tarFile):
+	if (not os.path.isfile(tarFile) and not os.path.isfile(newUrlsFile)):
 		print('\nDownloading list of urls...')
 		tarUrl = 'http://image-net.org/imagenet_data/urls/imagenet_fall11_urls.tgz'
 		urllib.urlretrieve (tarUrl, tarFile)
+	elif os.path.isfile(tarFile):
+		print('\nDecompressed tar file already exists, skipping download')
 	else:
-		print('\ntar file with url list aready exists, skipping download')
+		print('\nTar file with url list aready exists, skipping download')
 
 	# Decompress tar file
 	if not os.path.isfile(newUrlsFile):
@@ -54,16 +56,17 @@ def sample_and_download_imgs(newUrlsFile, N):
 				except:
 					pass
 
+
 def clean_corrupted_images():
+
 	print('\nLooking for corrupted images...')
+
 	n = 0
 	corrupted = 0
 	for filename in os.listdir('Images/'):
 		if filename.endswith('.jpg'):
 			n += 1
 			try:
-				#img = Image.open('Images/'+filename)
-				#img.verify()
 				img = imread('Images/'+filename)
 				if len(img.shape)<3:
 					corrupted += 1
@@ -73,9 +76,12 @@ def clean_corrupted_images():
 				os.remove('Images/'+filename)
 
 	print('\nRemoved '+str(corrupted)+' corrupted images')
+
 	return n-corrupted
 
+
 def remove_url_files(removeTar, tarFile, removeFullList, newUrlsFile):
+
 	if removeTar=='True' and os.path.isfile(tarFile):
 		print('\nRemoving tar file')
 		os.remove(tarFile)
@@ -88,14 +94,18 @@ def remove_url_files(removeTar, tarFile, removeFullList, newUrlsFile):
 def main(args):
 
 	N = int(args[0])
-	removeTar = args[1]
-	removeFullList = args[2]
-	tarFile = 'Images/_tarFile.tgz'
-	oldUrlsFile = 'Images/fall11_urls.txt'
-	newUrlsFile = 'Images/_urlsFullList.txt'
+	outputFolder = args[1]
+	removeTar = args[2]
+	removeFullList = args[3]
 
-	if not os.path.exists('Images/'):
-		os.makedirs('Images/')
+	if not outputFolder.endswith('/'):
+		outputFolder += '/'
+	if not os.path.exists(outputFolder):
+		os.makedirs(outputFolder)
+
+	tarFile = outputFolder + '_tarFile.tgz'
+	oldUrlsFile = outputFolder + 'fall11_urls.txt'
+	newUrlsFile = outputFolder + '_urlsFullList.txt'
 
 	download_url_list(tarFile, oldUrlsFile, newUrlsFile)
 	sample_and_download_imgs(newUrlsFile, N)
@@ -107,7 +117,8 @@ def main(args):
 
 	remove_url_files(removeTar, tarFile, removeFullList, newUrlsFile)
 
-	print('\nFinished script\n\n')
+	print('\nFinished script. Images saved in '+outputFolder+'\n\n')
+
 
 if __name__ == '__main__':
 	main(sys.argv[1:])

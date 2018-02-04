@@ -91,7 +91,7 @@ def main(args):
 			save_img(outputFolder + imgFile, img[0], img[1])
 
 	print('\nSkipped ' + str(skipped) + ' images because of size')
-	print('\nFinished. New images saved in '+outputFolder+'\n\n')
+	print('\nFinished script. New images saved in '+outputFolder+'\n\n')
 
 
 if __name__ == '__main__':
