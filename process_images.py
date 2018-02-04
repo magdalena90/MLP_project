@@ -3,8 +3,7 @@
 import sys
 import os
 import numpy as np
-import PIL
-from scipy.misc import imread, imresize, imsave
+from scipy.misc import imresize, imread, imsave
 
 
 def resize_img(img, height, width):
@@ -58,8 +57,11 @@ def load_img(path, height, width):
 		return None
 
 
-def save_img(path, img_A, img_B):
-	img = np.concatenate((img_A, img_B), axis=1)
+def save_img(path, img_A, img_B, train_or_test):
+	if train_or_test == 'train':
+		img = np.concatenate((img_A, img_B), axis=1)
+	else:
+		img = img_B
 	imsave(path, img)
 
 
@@ -69,6 +71,7 @@ def main(args):
 	max_n_imgs = int(args[2])
 	height = int(args[3])
 	width = int(args[4])
+	train_or_test = args[5]
 
 	if not inputFolder.endswith('/'):
 		inputFolder += '/'
@@ -88,7 +91,7 @@ def main(args):
 		if img is None:
 			skipped += 1
 		else:
-			save_img(outputFolder + imgFile, img[0], img[1])
+			save_img(outputFolder + imgFile, img[0], img[1], train_or_test)
 
 	print('\nSkipped ' + str(skipped) + ' images because of size')
 	print('\nFinished script. New images saved in '+outputFolder+'\n\n')

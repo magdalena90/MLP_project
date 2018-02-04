@@ -6,8 +6,7 @@ import tarfile
 import sys
 import random
 import re
-import PIL
-from scipy.misc import imread
+from skimage.io import imread
 
 
 def download_url_list(tarFile, oldUrlsFile, newUrlsFile):
@@ -37,7 +36,7 @@ def sample_and_download_imgs(newUrlsFile, N):
 
 	# Select random sample from lines in text file
 	print('\nSelecting '+str(N)+' sample rows...')
-	num_lines = sum(1 for line in open(newUrlsFile))
+	num_lines = sum(1 for line in open(newUrlsFile, 'r'))
 	random_lines = random.sample(xrange(1, num_lines), N)
 	imgIdRegex = re.compile('^\S*')
 	imgUrlRegex = re.compile('http[^ ]+')
