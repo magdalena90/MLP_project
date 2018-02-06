@@ -1,0 +1,3 @@
+scipy
+pillow
+scikit-image
