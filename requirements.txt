@@ -1,6 +1,6 @@
 tensorflow_gpu==1.4.1
 tqdm==4.11.2
 numpy==1.13.1
-scipy
+scipy==1.0.0
 pillow
 scikit-image
