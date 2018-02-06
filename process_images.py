@@ -86,13 +86,15 @@ def main(args):
 	print('\nProcessing images...')
 	skipped = 0
 	for imgFile in imgFiles[:max_n_imgs]:
-		img = load_img(inputFolder + imgFile, height, width)
+		try:
+			img = load_img(inputFolder + imgFile, height, width)
 
-		if img is None:
+			if img is None:
+				skipped += 1
+			else:
+				save_img(outputFolder + imgFile, img[0], img[1], train_or_test)
+		except:
 			skipped += 1
-		else:
-			save_img(outputFolder + imgFile, img[0], img[1], train_or_test)
-
 	print('\nSkipped ' + str(skipped) + ' images because of size')
 	print('\nFinished script. New images saved in '+outputFolder+'\n\n')
 
