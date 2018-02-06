@@ -95,7 +95,7 @@ def main(args):
 				save_img(outputFolder + imgFile, img[0], img[1], train_or_test)
 		except:
 			skipped += 1
-	print('\nSkipped ' + str(skipped) + ' images because of size')
+	print('\nSkipped ' + str(skipped) + ' images')
 	print('\nFinished script. New images saved in '+outputFolder+'\n\n')
 
 
