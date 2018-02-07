@@ -4,7 +4,7 @@ source /home/$USER/miniconda3/bin/activate
 conda create -n py27 python=2.7
 source activate py27
 conda install git
-pip install requirements.txt
+pip install -r requirements.txt
 
 cd ~/miniconda3/envs/py27
 mkdir -p ./etc/conda/activate.d
