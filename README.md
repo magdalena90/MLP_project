@@ -48,11 +48,11 @@ The generated images will be inside **test** folder among **pix2pix** repo files
 ### FROM mlp1/mlp2 to DICE
 
 ```bash
-cp test/* /afs/inf.ed.ac.uk/user/s15/<studentUUN>/some_target_path
+cp test/* /afs/inf.ed.ac.uk/user/s17/<studentUUN>/some_target_path
 ```
 
 ### FROM DICE to local
 
 ```bash
-scp <studentUUN>@student.ssh.inf.ed.ac.uk:/afs/inf.ed.ac.uk/user/s15/<studentUUN>/some_target_path /some_local_path
+scp <studentUUN>@student.ssh.inf.ed.ac.uk:/afs/inf.ed.ac.uk/user/s17/<studentUUN>/some_target_path /some_local_path
 ```
