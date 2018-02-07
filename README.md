@@ -19,7 +19,7 @@ bash create_environment.sh
 
 ## Downloading and processing images, splitting in training and validation sets
 
-Then we proceed to cloning **pix2** repo and downloading and processing images. The first argument must be 1 if we want to clone the **pix2** repo or any other value if we have already cloned the repo. The second and third argument is for the number of images we want to donwload and the number of images we want to use a validation set, respectively. For example:
+Then we proceed to cloning **pix2pix** repo and downloading and processing images. The first argument must be 1 if we want to clone the **pix2pix** repo or any other value if we have already cloned the repo. The second and third argument is for the number of images we want to donwload and the number of images we want to use a validation set, respectively. For example:
 
 ```bash
 bash preprocessing.sh 1 500 100
