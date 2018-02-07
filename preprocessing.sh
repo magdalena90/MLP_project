@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+# nImages - number of Images to download
+# nTest - number of Images to choose as validation set
+
 nImages=$1
 nTest=$2
 
