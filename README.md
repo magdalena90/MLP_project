@@ -7,7 +7,7 @@ Check the project's Wiki for more details of the content of the project
 Clone this repo when logged in at **mlp1** or **mlp2**
 
 ```bash
-git clone https://github.com/pjcv89/MLP_project.git
+git clone https://github.com/magdalena90/MLP_project
 cd MLP_project
 ```
 
