@@ -18,7 +18,7 @@ printf 'ACTIVATING CONDA ENVIRONMENT \n'
 source /home/$USER/miniconda3/bin/activate py27
 
 printf 'DOWNLOADING SAMPLE IMAGES \n'
-python download_sample_images.py 500 Images True True
+python download_sample_images.py 500 Images False False
 printf 'PREPROCESSING SAMPLE IMAGES \n'
 python process_images.py Images ImagesOut 500 256 256 train
 
