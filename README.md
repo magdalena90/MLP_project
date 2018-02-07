@@ -33,7 +33,7 @@ Now we are ready to use the cGAN training and launch the job to **Slurm**. Pleas
 ```bash
 sbatch gpu_training.sh
 ```
-We can track the status of our job using the command **squeue** and monitor the printings to stdout of our job in the file **sample_experiment_errfile**, which is updated every 5 minutes.
+We can track the status of our job using the command **squeue** and monitor the printings to stdout of our job in the file **sample_experiment_outfile**, which is updated every 5 minutes.
 
 After our job is complete, we can launch another job to apply our generator network to our validation set. Please note that this script is the same as before, except that we are using the flag __--phase test__ in **pix2pix**'s module main.py 
 
