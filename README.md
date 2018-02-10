@@ -33,6 +33,9 @@ Now we are ready to use the cGAN training and launch the job to **Slurm**. Pleas
 ```bash
 sbatch gpu_training.sh
 ```
+
+A new folder inside **checkpoint** folder will be created among **pix2pix** repo files. This folder will contain the metadata for the model and will be updated periodically.
+
 We can track the status of our job using the command **squeue** and monitor the printings to stdout of our job in the file **sample_experiment_outfile**, which is updated every 5 minutes.
 
 After our job is complete, we can launch another job to apply our generator network to our validation set. Please note that this script is the same as before, except that we are using the flag __--phase test__ in **pix2pix**'s module main.py 
@@ -41,17 +44,34 @@ After our job is complete, we can launch another job to apply our generator netw
 sbatch gpu_testing.sh
 ```
 
+### Continue training an already trained model
+
+The last line of the **gpu_training** script reads as follows:
+
+```bash
+python main.py --dataset_name imagenet --phase train --epoch 200 
+```
+
+Suppose after the model is trained, we would like to continue the training process for this model. Let's say we want our model to run for 100 more epochs, then we can modify the last line of **gpu_training** script as follows:
+
+```bash
+python main.py --dataset_name imagenet --phase train --epoch 300 --continue_train True
+```
+
+This way, the training procedure will continue based on the metadata contained in the **checkpoint** location.
+
+
 ## Copying outputs to local
 
 The generated images will be inside **test** folder among **pix2pix** repo files. To get the images from mlp1/mlp2 to our computer we need to proceed as follows:
 
-### FROM mlp1/mlp2 to DICE
+### From mlp1/mlp2 to DICE
 
 ```bash
 cp test/* /afs/inf.ed.ac.uk/user/s17/<studentUUN>/some_target_path
 ```
 
-### FROM DICE to local
+### From DICE to local
 
 ```bash
 scp <studentUUN>@student.ssh.inf.ed.ac.uk:/afs/inf.ed.ac.uk/user/s17/<studentUUN>/some_target_path /some_local_path
