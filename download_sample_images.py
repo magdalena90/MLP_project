@@ -111,7 +111,7 @@ def main(args):
 	n = clean_corrupted_images()
 
 	while n<N:
-		sample_and_download_imgs(newUrlsFile, 2*(N-n))
+		sample_and_download_imgs(newUrlsFile, int(1.5*(N-n)))
 		n = clean_corrupted_images()
 
 	remove_url_files(removeTar, tarFile, removeFullList, newUrlsFile)
