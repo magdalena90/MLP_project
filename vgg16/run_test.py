@@ -9,6 +9,8 @@ from skimage.io import imsave, imread
 def load_image(path):
   img = imread(path)
     
+  img = img[:,int(img.shape[1]/2):,:]
+
 	# crop image from center
   short_edge = min(img.shape[:2])
   yy = int((img.shape[0] - short_edge) / 2)
