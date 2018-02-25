@@ -9,7 +9,7 @@ import re
 from skimage.io import imread
 
 
-def download_url_list(tarFile, oldUrlsFile, newUrlsFile):
+def download_url_list(tarFile, oldUrlsFile, newUrlsFile, outputFolder):
 
 	# Download tar file from ImageNet
 	if (not os.path.isfile(tarFile) and not os.path.isfile(newUrlsFile)):
@@ -25,14 +25,14 @@ def download_url_list(tarFile, oldUrlsFile, newUrlsFile):
 	if not os.path.isfile(newUrlsFile):
 		print('\nDecompressing tar file...')
 		tar = tarfile.open(tarFile)
-		tar.extractall(path='Images')
+		tar.extractall(path=outputFolder)
 		tar.close()
 		os.rename(oldUrlsFile, newUrlsFile)
 	else:
 		print('\ntar file already decompressed, skipping decompression')
 
 
-def sample_and_download_imgs(newUrlsFile, N):
+def sample_and_download_imgs(newUrlsFile, outputFolder, N):
 
 	# Select random sample from lines in text file
 	print('\nSelecting '+str(N)+' sample rows...')
@@ -48,7 +48,7 @@ def sample_and_download_imgs(newUrlsFile, N):
 		for line in f:
 			n += 1
 			if n in random_lines:
-				imgId = 'Images/'+imgIdRegex.findall(line)[0]+'.jpg'
+				imgId = outputFolder+imgIdRegex.findall(line)[0]+'.jpg'
 				imgUrl = imgUrlRegex.findall(line)[0]
 				try:
 					urllib.urlretrieve(imgUrl, imgId)
@@ -56,23 +56,23 @@ def sample_and_download_imgs(newUrlsFile, N):
 					pass
 
 
-def clean_corrupted_images():
+def clean_corrupted_images(outputFolder):
 
 	print('\nLooking for corrupted images...')
 
 	n = 0
 	corrupted = 0
-	for filename in os.listdir('Images/'):
+	for filename in os.listdir(outputFolder):
 		if filename.endswith('.jpg'):
 			n += 1
 			try:
-				img = imread('Images/'+filename)
+				img = imread(outputFolder+filename)
 				if len(img.shape)<3:
 					corrupted += 1
-					os.remove('Images/'+filename)	
+					os.remove(outputFolder+filename)	
 			except:
 				corrupted += 1
-				os.remove('Images/'+filename)
+				os.remove(outputFolder+filename)
 
 	print('\nRemoved '+str(corrupted)+' corrupted images')
 
@@ -106,13 +106,13 @@ def main(args):
 	oldUrlsFile = outputFolder + 'fall11_urls.txt'
 	newUrlsFile = outputFolder + '_urlsFullList.txt'
 
-	download_url_list(tarFile, oldUrlsFile, newUrlsFile)
-	sample_and_download_imgs(newUrlsFile, N)
-	n = clean_corrupted_images()
+	download_url_list(tarFile, oldUrlsFile, newUrlsFile, outputFolder)
+	sample_and_download_imgs(newUrlsFile, outputFolder, N)
+	n = clean_corrupted_images(outputFolder)
 
 	while n<N:
-		sample_and_download_imgs(newUrlsFile, int(1.5*(N-n)))
-		n = clean_corrupted_images()
+		sample_and_download_imgs(newUrlsFile, outputFolder, int(1.5*(N-n)))
+		n = clean_corrupted_images(outputFolder)
 
 	remove_url_files(removeTar, tarFile, removeFullList, newUrlsFile)
 
@@ -121,4 +121,3 @@ def main(args):
 
 if __name__ == '__main__':
 	main(sys.argv[1:])
-
