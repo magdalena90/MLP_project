@@ -3,3 +3,4 @@
 *.txt
 *.tfmodel
 Images/
+vgg16_classify/test_data
