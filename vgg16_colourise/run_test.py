@@ -45,7 +45,9 @@ def run_model(inputFolder, outputFolder):
 	graph_def = tf.GraphDef()
 	graph_def.ParseFromString(fileContent)
 	grayscale = tf.placeholder('float', [n, 224, 224, 1])
-	inferred_rgb, = tf.import_graph_def(graph_def, input_map={'grayscale': grayscale}, return_elements=['inferred_rgb:0'])
+	inferred_rgb, = tf.import_graph_def(graph_def, 
+		input_map={'grayscale': grayscale}, 
+		return_elements=['inferred_rgb:0'])
 
 	# Run model
 	with tf.Session() as sess:
