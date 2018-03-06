@@ -24,6 +24,10 @@ def get_img_batch(inputFolder):
 
 def get_labels_idx(our_labels):
 
+  # Check that there are no repeated labels in different classes
+  if len(our_labels) != len(set(our_labels)):
+    print('\nERROR there is at least one label in more than one class\n')
+
   # Get list of all labels
   all_labels = [l for l in open('./synset.txt').readlines()]
   all_labels = [l.split(' ',1)[0] for l in all_labels]
@@ -79,6 +83,7 @@ def extract_info_from_probs(probs, imgFiles, outputFolder):
   # Get index of selected labels in probs
   file = './selected_synset.txt'
   labels_info = [l.strip() for l in open(file).readlines()]
+  labels_info.sort()
   labels = [l.split(' ',1)[0] for l in labels_info]
   labels_idx = get_labels_idx(labels)
 

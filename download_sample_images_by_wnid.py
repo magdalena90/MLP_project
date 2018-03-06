@@ -21,14 +21,23 @@ def sample_and_download_imgs(wnid, outputFolder, N):
 
 	# Download images from sample
 	print('\nDownloading images...')
-	n = 1
+
+	files = [int(f[:-4]) for f in os.listdir(outputFolder)]
+	if files:
+		print max(files)
+		n = max(files) + 1
+	else:
+		n = 1
+
+	print '\n'
+	print n
+	print '\n'
 	for img_url in random_img_urls:
 		try:
 			img_name = outputFolder + str(n) + '.jpg'
 			urllib.urlretrieve(img_url, img_name)
 			n += 1
 		except:
-			print 'error'
 			pass
 
 
