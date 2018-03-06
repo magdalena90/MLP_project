@@ -70,7 +70,16 @@ def output_img_class(labels_info, imgs, label_probs, outputFolder):
   max_label = label_probs.idxmax(axis=1)
   max_class = [class_dict[ml] for ml in max_label]
 
-  # Create img_class DataFrame
+  # Classify anything below 0.1 as Person
+  max_prob = label_probs.max(axis=1)
+  for i in range(len(max_prob)):
+    if max_prob[i] < 0.02:
+      max_class[i] = 'Person'
+  #for i in range(len(label_probs)):
+  #  if max(label_probs[i,:]) < 0.1:
+  #    max_class = 'Person'
+
+  # Create img_class DataFrames
   mc_np = np.array(max_class).reshape(len(max_class),1)
   img_class = pd.DataFrame(mc_np, index=imgs, columns=['class'])
 
