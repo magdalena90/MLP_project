@@ -29,9 +29,6 @@ def sample_and_download_imgs(wnid, outputFolder, N):
 	else:
 		n = 1
 
-	print '\n'
-	print n
-	print '\n'
 	for img_url in random_img_urls:
 		try:
 			img_name = outputFolder + str(n) + '.jpg'
