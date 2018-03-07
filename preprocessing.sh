@@ -4,9 +4,28 @@
 # nTest - number of Images to choose as validation set
 # nPixel - number of pixels (both width and height) of the images
 
-nImages=$1
-nTest=$2
-nPixel=$3
+Pix=$1
+nImages=$2
+nTest=$3
+nPixel=$4
+
+if [ $Pix -eq 1 ];then
+        printf 'CREATING TRAIN AND VAL FOLDERS FOR pix2pix \n'
+        cd pix2pix-tensorflow
+        mkdir datasets
+        cd datasets
+        mkdir imagenet
+        cd imagenet
+        mkdir train
+        mkdir val
+        mkdir test
+
+        cd ..
+        cd ..
+        cd ..
+else
+        printf 'SKIPPING CREATING TRAIN AND VAL FOLDERS FOR pix2pix \n'
+fi
 
 printf 'ACTIVATING CONDA ENVIRONMENT \n'
 source /home/$USER/miniconda3/bin/activate py27
