@@ -1,8 +1,9 @@
 #!/usr/bin/bash
 
-# Pix - clone pix2pix repo? 1 if so
 # nImages - number of Images to download
 # nTest - number of Images to choose as validation set
+# wnID - ImageNet ID to download
+# nPixel - number of pixels (both width and height) of images
 
 nImages=$1
 nTest=$2
