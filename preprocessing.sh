@@ -1,34 +1,12 @@
 #!/usr/bin/bash
 
-# Pix - clone pix2pix repo? 1 if so
 # nImages - number of Images to download
 # nTest - number of Images to choose as validation set
-# nPixel - number of pixels of the images
+# nPixel - number of pixels (both width and height) of the images
 
-Pix=$1
-nImages=$2
-nTest=$3
-nPixel=$4
-
-if [ $Pix -eq 1 ];then
-        printf 'CLONNING pix2pix \n'
-        git clone https://github.com/yenchenlin/pix2pix-tensorflow.git
-        cd pix2pix-tensorflow
-        mkdir datasets
-        cd datasets
-        mkdir imagenet
-        cd imagenet
-        mkdir train
-        mkdir val
-        mkdir test
-
-        cd ..
-        cd ..
-        cd ..
-else
-        printf 'SKIPPING CLONNING pix2pix \n'
-fi
-
+nImages=$1
+nTest=$2
+nPixel=$3
 
 printf 'ACTIVATING CONDA ENVIRONMENT \n'
 source /home/$USER/miniconda3/bin/activate py27
