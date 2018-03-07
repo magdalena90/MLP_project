@@ -5,10 +5,29 @@
 # wnID - ImageNet ID to download
 # nPixel - number of pixels (both width and height) of images
 
-nImages=$1
-nTest=$2
-wnID=$3
-nPixel=$4
+Pix=$1
+nImages=$2
+nTest=$3
+wnID=$4
+nPixel=$5
+
+if [ $Pix -eq 1 ];then
+        printf 'CREATING TRAIN AND VAL FOLDERS FOR pix2pix \n'
+        cd pix2pix-tensorflow
+        mkdir datasets
+        cd datasets
+        mkdir imagenet
+        cd imagenet
+        mkdir train
+        mkdir val
+        mkdir test
+
+        cd ..
+        cd ..
+        cd ..
+else
+        printf 'SKIPPING CREATING TRAIN AND VAL FOLDERS FOR pix2pix \n'
+fi
 
 printf 'ACTIVATING CONDA ENVIRONMENT \n'
 source /home/$USER/miniconda3/bin/activate py27
