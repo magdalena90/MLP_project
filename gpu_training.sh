@@ -31,4 +31,4 @@ source /home/${STUDENT_ID}/miniconda3/bin/activate py27
 
 cd pix2pix-tensorflow
 
-python main.py --dataset_name imagenet --phase train --epoch 250 --batch_size 5 --fine_size 128
+python main.py --dataset_name imagenet --phase train --epoch 250 --batch_size 5 --fine_size 128 --save_epoch_freq 5
