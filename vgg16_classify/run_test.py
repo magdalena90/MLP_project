@@ -73,7 +73,7 @@ def output_img_class(labels_info, imgs, label_probs, outputFolder):
   # Classify anything below 0.1 as Person
   max_prob = label_probs.max(axis=1)
   for i in range(len(max_prob)):
-    if max_prob[i] < 0.02:
+    if max_prob[i] < 0.05:
       max_class[i] = 'Person'
   #for i in range(len(label_probs)):
   #  if max(label_probs[i,:]) < 0.1:

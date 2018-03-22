@@ -50,7 +50,7 @@ def load_img(path, height, width):
 
 	img = imread(path).astype(np.float)
 
-	if (img.shape[0] > height and img.shape[1] > width):
+	if (img.shape[0] >= height and img.shape[1] >= width):
 		img_A, img_B = preprocess_img(img, height, width)
 		return [img_A, img_B]
 	else:
