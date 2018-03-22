@@ -37,7 +37,6 @@ def main(args):
 			img = imread(inputFolder+imgFile).astype(np.float)
 			n = cut_and_save_imgs(img, n_tot, outputFolder)
 			n_tot += n
-			print n
 		except:
 			pass
 
