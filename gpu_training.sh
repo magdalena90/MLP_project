@@ -5,7 +5,7 @@
 #SBATCH --mem=16000  # memory in Mb
 #SBATCH -o sample_experiment_outfile  # send stdout to sample_experiment_outfile
 #SBATCH -e sample_experiment_errfile  # send stderr to sample_experiment_errfile
-#SBATCH -t 24:00:00  # time requested in hour:minute:secon
+#SBATCH -t 8:00:00  # time requested in hour:minute:secon
 export CUDA_HOME=/opt/cuda-8.0.44
 
 export CUDNN_HOME=/opt/cuDNN-6.0_8.0
@@ -31,4 +31,4 @@ source /home/${STUDENT_ID}/miniconda3/bin/activate py27
 
 cd pix2pix-tensorflow
 
-python main.py --dataset_name imagenet --phase train --epoch 200
+python main.py --dataset_name imagenet --phase train --epoch 50 --batch_size 5 --fine_size 256 --save_epoch_freq 5
