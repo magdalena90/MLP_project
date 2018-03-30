@@ -100,12 +100,11 @@ def semantic_classifier(folder):
   Classes = [f for f in os.listdir(folder) if os.path.isdir(os.path.join(folder, f))]
   Models = [f for f in os.listdir(folder+Classes[0]) if os.path.isdir(os.path.join(folder+Classes[0], f))]
 
-  #for Class in Classes:
-  #  for Model in Models:
-  Class = 'Person'
-  Model = 'GeneralModel'
-  print '\nRunning classification for Model ' + Model + ' on Class ' + Class + '\n'
-  run_model(folder, Class, Model)
+  for Class in Classes:
+    for Model in Models:
+    	if Class=='Vehicle' and Model=='Gray':
+  			print '\nRunning classification for Model ' + Model + ' on Class ' + Class + '\n'
+  			run_model(folder, Class, Model)
 
 
 def main(args):
